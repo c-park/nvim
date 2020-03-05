@@ -1,0 +1,218 @@
+let base16colorspace=256
+
+set relativenumber
+set number
+" set ts=2
+" set expandtab
+set autoindent
+set showmatch
+set cursorline
+set textwidth=80
+set wrapmargin=0
+set tw=78 ts=4 sw=4 sta  sts=4 
+
+set colorcolumn=80
+
+" Word Wrapping
+" set wrap linebreak nolist
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set mouse=a
+
+"""""""""""""""""""""
+" Statusline Settings
+"""""""""""""""""""""
+" tpope's
+" set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+
+"""""""""""""""""""""
+" Airline Settings
+"""""""""""""""""""""
+let g:loaded_airline = 0
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'base16'
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+
+" Tmuxline
+
+
+""""""""""""""""""'
+" Python Settings
+" 
+" """"""""""""""""
+
+" nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
+
+let g:SuperTabDefaultCompletionType = "context"
+
+""""""""""""""
+" Snippet Settings
+""""""""""""""""
+
+let g:snips_author="Cade Parkison"
+let g:snips_email="cadeparkison@gmail.com"
+let g:snips_github="c-park"
+
+let g:UltiSnipsExpandTrigger="<f1>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit = "vertical"
+
+"""""""""""""""""
+" Julia Settings
+"""""""""""""""""
+
+let g:default_julia_versoin = "0.3"
+let g:julia_syntax_highlight_deprecated = 1
+
+"""""""""""""""""
+" Syntastic Settings
+"
+""""""""""""""""
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+"nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+""""""""""""""""
+
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+autocmd  VimEnter * wincmd p
+
+""""""""""""""""""
+" Slime Settings
+""""""""""""""""""
+"let g:slime_target = "tmux"
+"let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.2"}
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
+call plug#begin()
+" Plug 'tmhedberg/SimpylFold'
+Plug 'jalvesaq/vimcmdline'
+"Plug 'daeyun/vim-matlab'
+Plug 'altercation/vim-colors-solarized'
+Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'scrooloose/syntastic'
+Plug 'chriskempson/base16-vim'
+" Plug 'hdima/python-syntax'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'fs111/pydoc.vim'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'JuliaLang/julia-vim'
+Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
+Plug 'justinmk/vim-syntax-extra'
+Plug 'tmhedberg/matchit'
+Plug 'jpalardy/vim-slime'
+Plug 'scrooloose/nerdtree'
+"Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'edkolev/tmuxline.vim'
+Plug 'majutsushi/tagbar'
+Plug 'christoomey/vim-system-copy'
+Plug 'Chiel92/vim-autoformat'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'mhinz/vim-startify'
+Plug 'klen/python-mode'
+" Plug 'Valloric/vim-operator-highlight'
+" Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-commentary'
+Plug '/severin-lemaignan/vim-minimap'
+call plug#end()
+
+" vim operator highlight
+let g:ophigh_color = 226
+
+
+""""""""""""
+" Python-Mode
+let g:pymode_rope_completion = 0
+let g:pymode_folding = 0
+let g:pymode_lint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_highlight_equal_operator = 1
+let g:pymode_syntax_highlight_self = 0
+let g:pymode_syntax_highlight_stars_operator = 1
+
+
+""""""
+" vim indent
+"""""""""""""'
+        
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+"""""""""""""""""""""
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_sort = 0
+
+""""""""""""""""""
+" Nerdtree
+""""""""""""""""""
+let g:NERDTreeWinSize=25
+map <silent> <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Startify
+autocmd User Startified setlocal buftype=
+autocmd VimEnter *
+            \   if !argc()
+            \ |   Startify
+            \ |   NERDTree
+            \ |   wincmd w
+            \ | endif
+""""""""""""""""""
+syntax enable
+set background=dark
+
+" base16-vim and base16-shell
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
+" Autoformat
+noremap <F3> :Autoformat<CR>
+
+" system-copy
+" let g:system_copy#copy_command='xclip -sel clipboard'
+" let g:system_copy#paste_command='xclip -sel clipboard -o'
+
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+      let g:deoplete#omni#input_patterns = {}
+endif
+
+" let g:deoplete#disable_auto_complete = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Gruvbox
+" """"""""""""
+let g:gruvbox_italic = 1
+let g:gruvbox_italicize_comments = 1
+let g:gruvbox_contrast_dark = "hard"
+" colorscheme base16-monokai
+"
